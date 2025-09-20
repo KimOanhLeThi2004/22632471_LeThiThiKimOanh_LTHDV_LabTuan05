@@ -1,34 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const authController = require('../controllers/authController');
 
-// Hiển thị form login
-router.get('/login', (req, res) => {
-  res.render('auth/login', { title: 'Login' });
-});
+router.get('/login', authController.getLogin);
+router.post('/login', authController.postLogin);
 
-// Xử lý login
-router.post('/login', (req, res) => {
-  // TODO: xử lý login thật với DB
-  req.session.userId = 'demoUser';
-  res.redirect('/');
-});
+router.get('/register', authController.getRegister);
+router.post('/register', authController.postRegister);
 
-// Hiển thị form register
-router.get('/register', (req, res) => {
-  res.render('auth/register', { title: 'Register' });
-});
+router.get('/logout', authController.logout);
 
-// Xử lý register
-router.post('/register', (req, res) => {
-  // TODO: lưu user vào DB
-  res.redirect('/auth/login');
-});
+router.get('/forgot', authController.getForgot);
+router.post('/forgot', authController.postForgot);
 
-// Logout
-router.get('/logout', (req, res) => {
-  req.session.destroy(() => {
-    res.redirect('/');
-  });
-});
+router.get('/reset/:token', authController.getReset);
+router.post('/reset/:token', authController.postReset);
 
 module.exports = router;

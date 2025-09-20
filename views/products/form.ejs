@@ -1,4 +1,5 @@
 <h2><%= product._id ? 'Edit Product' : 'Add Product' %></h2>
+
 <form method="post" action="<%= product._id ? '/products/edit/' + product._id : '/products/create' %>">
   <div class="mb-3">
     <label>Name</label>
@@ -7,17 +8,17 @@
 
   <div class="mb-3">
     <label>Price</label>
-    <input type="number" class="form-control" name="price" value="<%= product.price || '' %>" required>
+    <input type="number" class="form-control" name="price" value="<%= product.price || 0 %>" required>
   </div>
 
   <div class="mb-3">
     <label>Quantity</label>
-    <input type="number" class="form-control" name="quantity" value="<%= product.quantity || '' %>">
+    <input type="number" class="form-control" name="quantity" value="<%= product.quantity || 0 %>">
   </div>
 
   <div class="mb-3">
     <label>Supplier</label>
-    <select name="supplier" class="form-select">
+    <select name="supplier" class="form-select" required>
       <option value="">-- Select Supplier --</option>
       <% suppliers.forEach(s => { %>
         <option value="<%= s._id %>" <%= product.supplier && product.supplier.equals(s._id) ? 'selected' : '' %>>

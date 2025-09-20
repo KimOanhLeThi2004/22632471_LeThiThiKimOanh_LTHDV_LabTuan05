@@ -1,16 +1,18 @@
-<h2><%= supplier._id ? 'Edit Supplier' : 'Add Supplier' %></h2>
 <form method="post" action="<%= supplier._id ? '/suppliers/edit/' + supplier._id : '/suppliers/create' %>">
   <div class="mb-3">
     <label>Name</label>
     <input class="form-control" name="name" value="<%= supplier.name || '' %>" required>
   </div>
+
   <div class="mb-3">
     <label>Address</label>
     <input class="form-control" name="address" value="<%= supplier.address || '' %>">
   </div>
+
   <div class="mb-3">
     <label>Phone</label>
     <input class="form-control" name="phone" value="<%= supplier.phone || '' %>">
   </div>
+
   <button type="submit" class="btn btn-primary">Save</button>
 </form>
