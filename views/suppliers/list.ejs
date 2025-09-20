@@ -25,7 +25,8 @@
           <% if (currentUser) { %>
             <a href="/suppliers/edit/<%= s._id %>" class="btn btn-sm btn-warning">Edit</a>
             <form method="post" action="/suppliers/delete/<%= s._id %>" style="display:inline">
-              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+              <button type="submit" class="btn btn-sm btn-danger" 
+                      onclick="return confirm('Delete this supplier?')">Delete</button>
             </form>
           <% } %>
         </td>
