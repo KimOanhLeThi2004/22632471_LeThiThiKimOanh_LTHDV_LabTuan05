@@ -1,0 +1,35 @@
+<h2>Suppliers</h2>
+
+<div class="mb-3">
+  <% if (currentUser) { %>
+    <a href="/suppliers/create" class="btn btn-success">Add Supplier</a>
+  <% } %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% suppliers.forEach(s => { %>
+      <tr>
+        <td><a href="/suppliers/view/<%= s._id %>"><%= s.name %></a></td>
+        <td><%= s.address %></td>
+        <td><%= s.phone %></td>
+        <td>
+          <% if (currentUser) { %>
+            <a href="/suppliers/edit/<%= s._id %>" class="btn btn-sm btn-warning">Edit</a>
+            <form method="post" action="/suppliers/delete/<%= s._id %>" style="display:inline">
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

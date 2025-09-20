@@ -1,0 +1,62 @@
+<h2>Products</h2>
+
+<form method="get" action="/products" class="row g-2 mb-3">
+  <div class="col-md-4">
+    <input 
+      type="text" 
+      name="q" 
+      value="<%= typeof q !== 'undefined' ? q : '' %>" 
+      class="form-control" 
+      placeholder="Search product name">
+  </div>
+
+  <div class="col-md-4">
+    <select name="supplier" class="form-select">
+      <option value="">-- All suppliers --</option>
+      <% suppliers.forEach(s => { %>
+        <option 
+          value="<%= s._id %>" 
+          <%= (typeof supplier !== 'undefined' && supplier == s._id) ? 'selected' : '' %>>
+          <%= s.name %>
+        </option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="col-md-4">
+    <button type="submit" class="btn btn-primary">Filter</button>
+    <% if (currentUser) { %>
+      <a href="/products/create" class="btn btn-success">Add Product</a>
+    <% } %>
+  </div>
+</form>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Qty</th>
+      <th>Supplier</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% products.forEach(p => { %>
+      <tr>
+        <td><a href="/products/view/<%= p._id %>"><%= p.name %></a></td>
+        <td><%= p.price %></td>
+        <td><%= p.quantity %></td>
+        <td><%= p.supplier ? p.supplier.name : '' %></td>
+        <td>
+          <% if (currentUser) { %>
+            <a href="/products/edit/<%= p._id %>" class="btn btn-sm btn-warning">Edit</a>
+            <form method="post" action="/products/delete/<%= p._id %>" style="display:inline">
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this product?')">Delete</button>
+            </form>
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
